@@ -18,4 +18,7 @@ public class CertificationAuditReqDTO {
 
     @ApiModelProperty(value = "驳回原因", required = false)
     private String rejectReason;
+
+    @ApiModelProperty(value = "认证申请id",required = true)
+    private Long id;
 }

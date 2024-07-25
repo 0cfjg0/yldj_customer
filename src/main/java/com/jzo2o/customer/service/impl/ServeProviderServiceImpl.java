@@ -239,6 +239,8 @@ public class ServeProviderServiceImpl extends ServiceImpl<ServeProviderMapper, S
         reqdto.setPassword(passwordEncoder.encode(reqdto.getPassword()));
         ServeProvider serveProvider = BeanUtil.toBean(reqdto, ServeProvider.class);
         serveProvider.setType(type);
+        serveProvider.setStatus(CommonStatusConstants.USER_STATUS_NORMAL);
+        serveProvider.setCode(IdUtils.getSnowflakeNextIdStr());
         this.save(serveProvider);
     }
 
@@ -259,7 +261,10 @@ public class ServeProviderServiceImpl extends ServiceImpl<ServeProviderMapper, S
         if(phone == null){
             throw new ForbiddenOperationException("参数异常");
         }
-        LambdaUpdateWrapper<ServeProvider> wrapper = Wrappers.<ServeProvider>lambdaUpdate().eq(ServeProvider::getPhone, phone).set(ServeProvider::getPassword, password);
+
+        //设置密码
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        LambdaUpdateWrapper<ServeProvider> wrapper = Wrappers.<ServeProvider>lambdaUpdate().eq(ServeProvider::getPhone, phone).set(ServeProvider::getPassword, passwordEncoder.encode(password));
         this.update(wrapper);
     }
 

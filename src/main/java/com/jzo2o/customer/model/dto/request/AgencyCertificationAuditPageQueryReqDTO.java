@@ -1,6 +1,7 @@
 package com.jzo2o.customer.model.dto.request;
 
 import com.jzo2o.common.model.dto.PageQueryDTO;
+import com.jzo2o.customer.model.domain.AgencyCertificationAudit;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
